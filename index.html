@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Colorful Timetable</title>
+  <link rel="stylesheet" href="css2.css">
+  <script src="js.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1 style="font-family: 'Varela Round', sans-serif;">MY TIME TABLE</h1>
+
+  <div class="container timetable-card">
+    <table>
+      <tr>
+        <th>Day/Period</th>
+        <th>9:30-10:20</th>
+        <th>10:20-11:10</th>
+        <th>11:10-12:00</th>
+        <th>12:00-12:40</th>
+        <th>12:40-1:30</th>
+        <th>1:30-2:20</th>
+        <th>2:20-3:10</th>
+        <th>3:10-4:00</th>
+      </tr>
+      <tr>
+        <td class="highlight">Monday</td>
+        <td>English</td>
+        <td>Math</td>
+        <td>Chemistry</td>
+        <td rowspan="6" class="lunch">LUNCH</td>
+        <td colspan="3" class="special">LAB</td>
+        <td>Physics</td>
+      </tr>
+      <tr>
+        <td class="highlight">Tuesday</td>
+        <td colspan="3" class="special">LAB</td>
+        <td>English</td>
+        <td>Chemistry</td>
+        <td>Math</td>
+        <td class="special">SPORTS</td>
+      </tr>
+      <tr>
+        <td class="highlight">Wednesday</td>
+        <td>Math</td>
+        <td>Physics</td>
+        <td>English</td>
+        <td>Chemistry</td>
+        <td colspan="3">LIBRARY</td>
+      </tr>
+      <tr>
+        <td class="highlight">Thursday</td>
+        <td>Physics</td>
+        <td>English</td>
+        <td>Chemistry</td>
+        <td colspan="3" class="special">LAB</td>
+        <td>Math</td>
+      </tr>
+      <tr>
+        <td class="highlight">Friday</td>
+        <td colspan="3" class="special">LAB</td>
+        <td>Math</td>
+        <td>Chemistry</td>
+        <td>English</td>
+        <td>Physics</td>
+      </tr>
+      <tr>
+        <td class="highlight">Saturday</td>
+        <td>English</td>
+        <td>Chemistry</td>
+        <td>Math</td>
+        <td colspan="3">SEMINAR</td>
+        <td class="special">SPORTS</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="button-section">
+    <button id="editBtn" class="btn-success">Edit Timetable</button>
+    <button id="saveBtn" class="btn-success" disabled>Save Changes</button>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <div class="child-routine card p-3 my-4 shadow-sm">
+    <!-- <h3 class="mb-3" style="font-family: 'Varela Round', sans-serif;">Everyday Routine 📅</h3> -->
+    <div class="routine-header">
+        <h3 style="font-family: 'Varela Round', sans-serif;">Everyday Routine 📅</h3>
+        <button id="resetRoutineBtn" class="btn-reset">Reset</button>
+    </div>
+    <ul class="list-group">
+      <a href="#" class="routine-item" data-id="routine-1" data-activity="Wake Up and Bath" data-time="7:00 AM"
+        data-quote="Every morning is a fresh start. Seize the day with a smile!"
+        data-image-src="assets/sun.png">
+        <input type="checkbox" id="check-1" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-cloud-sun"></i> Wake Up and Bath (7:00 AM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-2" data-activity="Breakfast" data-time="8:30 AM"
+        data-quote="Fuel your body and mind. A great day starts with a great meal!"
+        data-image-src="assets/breakfast.png">
+        <input type="checkbox" id="check-2" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-mug-saucer"></i> Breakfast (8:30 AM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-3" data-activity="Classes" data-time="9:00 AM - 3:00 PM"
+        data-quote="Learning is the eye of the mind. Dive deep into your studies."
+        data-image-src="assets/book.png">
+        <input type="checkbox" id="check-3" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-book-open"></i> Classes (9:00 AM - 3:00 PM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-4" data-activity="Slot 01" data-time="3:00 PM - 6:00 PM"
+        data-quote="Time for growth! Dedicate this slot to your passion projects."
+        data-image-src="assets/images.png">
+        <input type="checkbox" id="check-4" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-clock"></i> Slot 01 (3:00 PM - 6:00 PM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-5" data-activity="Refreshment" data-time="6:00 PM"
+        data-quote="Pause, breathe, and recharge. Small breaks lead to big achievements."
+        data-image-src="assets/refreshment.png">
+        <input type="checkbox" id="check-5" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-face-laugh"></i> Refreshment (6:00 PM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-6" data-activity="Slot 02" data-time="6:30 PM - 9:00 PM"
+        data-quote="Focus and finish strong. You are closer to your goals than you think."
+        data-image-src="assets/images.png">
+        <input type="checkbox" id="check-6" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-clock"></i> Slot 02 (6:30 PM - 9:00 PM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-7" data-activity="Dinner" data-time="9:00 PM"
+        data-quote="Eat well, live well. Enjoy this time with family and friends."
+        data-image-src="assets/dinner.png">
+        <input type="checkbox" id="check-7" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-bowl-food"></i> Dinner (9:00 PM)
+        </div>
+      </a>
+      <a href="#" class="routine-item" data-id="routine-8" data-activity="Slot 03" data-time="9:30 PM - 12:00 AM"
+        data-quote="Reflect on the day, plan for tomorrow, and drift off to dreamland."
+        data-image-src="assets/images.png">
+        <input type="checkbox" id="check-8" class="routine-checkbox">
+        <div class="routine-content">
+          <i class="icon fa-solid fa-moon"></i> Slot 03 (9:30 PM - 12:00 AM)
+        </div>
+      </a>
+    </ul>
+  </div>
+
+  <div id="routineModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modalActivity">Activity Name</h2>
+      <p class="modal-time-label">Time: <span id="modalTime">--</span></p>
+      <div class="modal-image-container">
+        <img id="modalImage" src="" alt="Routine Image">
+      </div>
+      <p id="modalQuote" class="modal-quote"></p>
+    </div>
+  </div>
+</body>
+
+</html>

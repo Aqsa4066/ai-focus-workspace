@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Space - Productivity Timer</title>
+  <link rel="stylesheet" href="css2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+    /* Standalone Focus Page Layout */
+    .focus-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;      /* Centers items horizontally */
+        justify-content: center;     /* Centers items vertically */
+        min-height: 75vh;
+        width: 100%;              /* Forces layout container to take full horizontal screen width */
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    /* 🌟 THE TRANSPARENT CIRCLE WITH A SNAKING GRADIENT BORDER 🌟 */
+    .timer-card {
+        position: relative;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.12); 
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 40px !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        overflow: visible;
+        border: none;
+        margin: 70px auto;        /* 'auto' margins cleanly lock it into the center space */
+        box-sizing: border-box;
+    }
+
+    /* This pseudo-element handles the dynamic colorful outer snake ring */
+    .timer-card::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        right: -6px;
+        bottom: -6px;
+        border-radius: 50%;
+        padding: 6px; 
+        
+        background: linear-gradient(45deg, 
+            #986be2, 
+            rgb(243, 138, 203) ,
+            rgb(243, 173, 88) ,
+            #eadf62,
+            #986be2
+        );
+        background-size: 300% 300%; /* Slightly compressed for smoother liquid motion */
+        
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        
+        /* 🌟 CHANGED: Uses snakeLiquid instead of snakeOrbit (No more rotating the box) */
+        animation: snakeLiquid 4s ease infinite;
+        pointer-events: none;
+    }
+
+    /* 2. Update the ::after glow layer animation reference */
+    .timer-card::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, 
+            #986be2, 
+            rgb(243, 138, 203) ,
+            rgb(243, 173, 88) ,
+            #eadf62,
+            #986be2
+        );
+        background-size: 300% 300%;
+        z-index: -1;
+        opacity: 0.3;
+        filter: blur(15px);
+        /* 🌟 CHANGED: Matches the liquid motion */
+        animation: snakeLiquid 4s ease infinite;
+    }
+
+    /* 🌟 NEW KEYFRAMES: Moves the colors smoothly without wiggling the layout 🌟 */
+    @keyframes snakeLiquid {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    /* Layout adjustments to lock items beautifully inside the circle */
+    .timer-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 5px;
+        z-index: 2;
+    }
+
+    .timer-display {
+        font-size: 4.2rem !important;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 10px 0 !important;
+        z-index: 2;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+    }
+
+    .timer-controls, .timer-modes {
+        z-index: 2;
+    }
+
+    /* Navigation Back Button Styles */
+    .back-btn {
+        margin-top: 40px;
+        background-color: var(--text-color);
+        color: white;
+        text-decoration: none;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.2s;
+    }
+    .back-btn:hover {
+        background-color: #555;
+        transform: translateY(-2px);
+    }
+    h1{
+        line-height: 0.8;
+        font-family:italic;
+        padding: 10px;
+        text-align: center;
+        color: #b31708;
+        margin-top: 20px;
+        margin-bottom: 0%;
+        font-size: 3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+      }
+  </style>
+</head>
+<body>
+
+  <h1>Productivity isn't Magic,</h1>
+  <h1> it's Discipline.</h1>
+
+  <div class="timer-card">
+    <div class="timer-header">
+      <h3 style="font-family: 'Varela Round', sans-serif; margin: 0; color: var(--text-color); font-size: 1.2rem;">
+        <i class="fa-solid fa-stopwatch"></i> Focus Timer
+      </h3>
+      <span id="timerMode">Study Session</span>
+    </div>
+    
+    <div class="timer-display" id="timeDisplay">50:00</div>
+    
+    <div class="timer-controls" style="margin-bottom: 15px; display: flex; gap: 8px;">
+      <button id="startTimerBtn" class="btn-timer" style="padding: 6px 14px; font-size: 0.9rem;"><i class="fa-solid fa-play"></i> Start</button>
+      <button id="pauseTimerBtn" class="btn-timer" style="padding: 6px 14px; font-size: 0.9rem;" disabled><i class="fa-solid fa-pause"></i> Pause</button>
+      <button id="resetTimerBtn" class="btn-timer" style="padding: 6px 14px; font-size: 0.9rem;"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+    </div>
+    
+    <div class="timer-modes" style="display: flex; gap: 6px;">
+      <button id="studyModeBtn" class="btn-mode active" style="padding: 4px 10px; font-size: 0.75rem;">Study (50m)</button>
+      <button id="napModeBtn" class="btn-mode" style="padding: 4px 10px; font-size: 0.75rem;">Nap (10m)</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let timer;
+        let timeLeft = 50 * 60; 
+        let isRunning = false;
+        let currentMode = 'study'; 
+
+        const timeDisplay = document.getElementById('timeDisplay');
+        const startTimerBtn = document.getElementById('startTimerBtn');
+        const pauseTimerBtn = document.getElementById('pauseTimerBtn');
+        const resetTimerBtn = document.getElementById('resetTimerBtn');
+        const studyModeBtn = document.getElementById('studyModeBtn');
+        const napModeBtn = document.getElementById('napModeBtn');
+        const timerModeLabel = document.getElementById('timerMode');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            startTimerBtn.disabled = true;
+            pauseTimerBtn.disabled = false;
+
+            timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timer);
+                    isRunning = false;
+                    startTimerBtn.disabled = false;
+                    pauseTimerBtn.disabled = true;
+                    alert(currentMode === 'study' ? "Great focus session! Time for a short nap/break." : "Nap over! Time to get back to work.");
+                    resetTimer();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            startTimerBtn.disabled = false;
+            pauseTimerBtn.disabled = true;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = currentMode === 'study' ? 50 * 60 : 1 * 60;
+            updateDisplay();
+        }
+
+        studyModeBtn.addEventListener('click', () => {
+            if (currentMode === 'study') return;
+            currentMode = 'study';
+            studyModeBtn.classList.add('active');
+            napModeBtn.classList.remove('active');
+            timerModeLabel.textContent = "Study Session";
+            resetTimer();
+        });
+
+        napModeBtn.addEventListener('click', () => {
+            if (currentMode === 'nap') return;
+            currentMode = 'nap';
+            napModeBtn.classList.add('active');
+            studyModeBtn.classList.remove('active');
+            timerModeLabel.textContent = "Nap Break";
+            resetTimer();
+        });
+
+        startTimerBtn.addEventListener('click', startTimer);
+        pauseTimerBtn.addEventListener('click', pauseTimer);
+        resetTimerBtn.addEventListener('click', resetTimer);
+    });
+  </script>
+</body>
+</html>

@@ -1,22 +1,39 @@
-# Time-Table-Schedular
-The Time Table Scheduler is a clean, intuitive web application designed to help users effectively manage and organize their weekly or daily schedules. It provides a simple interface for creating, viewing, and organizing events.
-# Features
-1. Local storage persistence so your schedule is saved even after you close the browser.
-2. Color-coded categories for different activity types (work, study, personal).
-3. Fully responsive design for seamless use on desktop, tablet, and mobile devices.
-4. One-click reset option to clear the entire schedule.
+# AI-Driven Focus & Routine Workspace 🚀
 
-# Tech Stack
-This website was built using the following technologies:
-1. Frontend: HTML/CSS/JavaScript
-2. Styling: Tailwind CSS, Bootstrap, plain CSS
-  
-# Contributing
-Contributions are always welcome! If you have suggestions or want to fix a bug, please feel free to fork the repository and submit a pull request.
-1. Fork the project.
-2. Create your Feature Branch
-3. Push to the Branch
-4. Open a Pull Request.
+An intelligent, full-stack productivity ecosystem designed to help students and developers optimize their daily routines. The application tracks task adherence, uses machine learning to identify personal productivity bottlenecks, and includes a beautiful, distraction-free glassmorphic focus timer.
 
-# Contact
-Aqsa Choudhary | aqsachoudhary4066@gmail.com
+## Tech Stack
+
+- **Frontend:** HTML5, CSS3 (Advanced Masks & Pseudo-element Animations), JavaScript (ES6+, Fetch API, LocalStorage)
+- **Backend:** Python 3, FastAPI, Uvicorn (Asynchronous Server)
+- **Machine Learning & Data Science:** Scikit-Learn (K-Means Clustering), NumPy
+
+---
+
+## Key Features
+
+- **Dynamic Timetable Scheduler:** A responsive interface to map out your daily slots, classes, and study blocks.
+- **Local Telemetry System:** Uses browser `LocalStorage` to log task adherence metrics (`completed` vs. `skipped` slots) without requiring a heavy database setup.
+- **ML-Powered Bottleneck Detection:** Integrates a **K-Means Clustering** pipeline to separate optimal habits from friction vectors, automatically isolating your lowest-efficiency routine blocks.
+- **Contextual Recommendation Engine:** A backend rule system that analyzes task metadata (keywords like "nap" or late-night time windows) to serve human-like, actionable advice to prevent burnout.
+- **Glassmorphic Focus Timer:** A standalone, high-performance workspace (`timer.html`) featuring a 50-minute study / 10-minute nap loop wrapped inside an animated, CSS-masked gradient border.
+
+---
+
+## Getting Started
+
+1. Clone the Repository
+```bash
+git clone [https://github.com/Aqsa4066/ai-focus-workspace.git](https://github.com/Aqsa4066/ai-focus-workspace.git)
+cd ai-focus-workspace
+```
+2. Set Up the Python Backend
+
+python -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn numpy scikit-learn
+
+3. Run the API Server
+
+python main.py
+
